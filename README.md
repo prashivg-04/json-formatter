@@ -1,12 +1,49 @@
-# React + Vite
+# JSON Formatter & Validator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A clean, fast, browser-based JSON formatter and validator. No accounts, no backend, no data leaving your device — everything runs locally in your browser.
 
-Currently, two official plugins are available:
+🔗 **Live Demo → [spliteasy.vercel.app](https://your-vercel-link-here.vercel.app)**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Real-time validation** — errors caught as you type with exact line and character position
+- **Beautify & Minify** — toggle between pretty-printed and compact JSON instantly
+- **Syntax highlighting** — keys, strings, numbers, booleans and null each highlighted distinctly
+- **Copy to clipboard** — one click to copy the formatted output
+- **Privacy first** — nothing is sent to any server, all processing happens in your browser
+- **Fully responsive** — two-panel layout on desktop, stacked on mobile
+
+## Tech Stack
+
+- React
+- Tailwind CSS
+- Vite
+- Deployed on Vercel
+
+## Getting Started
+
+```bash
+git clone https://github.com/prashivg-04/json-formatter
+cd json-formatter
+npm install
+npm run dev
+```
+
+## Deployment
+
+This project is deployed on Vercel. Any push to `main` triggers an automatic redeployment.
+
+```bash
+npm run build
+# or just push to main — Vercel handles the rest
+```
+
+## License
+
+MIT
+
+---
+
+Built by **Prashiv Goyal** · prashivg04@gmail.com
