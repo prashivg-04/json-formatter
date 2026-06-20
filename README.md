@@ -2,7 +2,7 @@
 
 A clean, fast, browser-based JSON formatter and validator. No accounts, no backend, no data leaving your device — everything runs locally in your browser.
 
-🔗 **Live Demo → [spliteasy.vercel.app](https://your-vercel-link-here.vercel.app)**
+🔗 **Live Demo → [json-formatter-silk.vercel.app](https://json-formatter-silk.vercel.app/)**
 
 ---
 
