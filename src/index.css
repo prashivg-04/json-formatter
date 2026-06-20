@@ -1,0 +1,326 @@
+@import "tailwindcss";
+
+/* ══════════════════════════════════════════════════════════════
+   THEME VARIABLES
+   Applied via [data-theme] on <html> by the useTheme hook.
+   Default (no attribute) = dark — prevents flash on first load.
+══════════════════════════════════════════════════════════════ */
+
+/* ── Dark theme (default) ──────────────────────────────────── */
+:root,
+[data-theme="dark"] {
+  --bg-base:    #0f1117;
+  --bg-surface: #1a1d27;
+  --bg-input:   #13151f;
+  --border:     #2a2d3a;
+
+  --accent:     #6c75f0;
+  --accent-dim: rgba(108, 117, 240, 0.15);
+
+  --text-primary:   #e2e4ef;
+  --text-secondary: #6b7090;
+  --text-muted:     #3f4260;
+
+  /* Syntax tokens — muted, readable on dark */
+  --tok-key:     #8fa3d4;   /* object keys  — slate-blue  */
+  --tok-string:  #8fd4b0;   /* string vals  — sage-green  */
+  --tok-number:  #d4a96b;   /* numbers      — warm amber  */
+  --tok-bool:    #c4a0d4;   /* bool / null  — soft violet */
+  --tok-bracket: #5c6080;   /* {} [] : ,    — dim         */
+
+  --valid-color: #5db88a;
+  --error-color: #e06c75;
+
+  color-scheme: dark;
+}
+
+/* ── Light theme ───────────────────────────────────────────── */
+[data-theme="light"] {
+  --bg-base:    #f2f3f8;
+  --bg-surface: #ffffff;
+  --bg-input:   #f8f9fc;
+  --border:     #dde0ed;
+
+  --accent:     #4f5bdc;
+  --accent-dim: rgba(79, 91, 220, 0.10);
+
+  --text-primary:   #1a1d2e;
+  --text-secondary: #4a5070;
+  --text-muted:     #9ba3c0;
+
+  /* Syntax tokens — deeper shades for light background */
+  --tok-key:     #2d4fa8;   /* slate-blue  — deeper */
+  --tok-string:  #1f7a54;   /* sage-green  — deeper */
+  --tok-number:  #905a10;   /* amber       — deeper */
+  --tok-bool:    #6b3fa0;   /* violet      — deeper */
+  --tok-bracket: #9099c0;   /* dim         */
+
+  --valid-color: #2a8a5e;
+  --error-color: #c0394a;
+
+  color-scheme: light;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   RESET / BASE
+══════════════════════════════════════════════════════════════ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  height: 100%;
+}
+
+body,
+#root {
+  height: 100%;
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SCROLLBAR
+══════════════════════════════════════════════════════════════ */
+::-webkit-scrollbar          { width: 6px; height: 6px; }
+::-webkit-scrollbar-track    { background: transparent; }
+::-webkit-scrollbar-thumb    { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* ══════════════════════════════════════════════════════════════
+   MONOSPACE ELEMENTS
+══════════════════════════════════════════════════════════════ */
+textarea,
+.output-pre,
+.error-msg {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   TEXTAREA
+══════════════════════════════════════════════════════════════ */
+textarea {
+  width: 100%;
+  height: 100%;
+  resize: none;
+  background:  var(--bg-input);
+  color:       var(--text-primary);
+  border:      1px solid var(--border);
+  border-radius: 6px;
+  padding:     16px;
+  outline:     none;
+  caret-color: var(--accent);
+  transition:  border-color 0.15s, background 0.18s, color 0.18s;
+}
+
+textarea:focus   { border-color: var(--accent); }
+textarea.has-error { border-color: var(--error-color); }
+textarea::placeholder { color: var(--text-muted); }
+
+/* ══════════════════════════════════════════════════════════════
+   OUTPUT PRE
+══════════════════════════════════════════════════════════════ */
+.output-pre {
+  width:        100%;
+  height:       100%;
+  overflow:     auto;
+  background:   var(--bg-input);
+  border:       1px solid var(--border);
+  border-radius: 6px;
+  padding:      16px;
+  white-space:  pre;
+  color:        var(--text-secondary);
+  transition:   background 0.18s, border-color 0.18s, color 0.18s;
+}
+
+/* Syntax token colours — driven by CSS vars per theme */
+.tok-key     { color: var(--tok-key); }
+.tok-string  { color: var(--tok-string); }
+.tok-number  { color: var(--tok-number); }
+.tok-bool    { color: var(--tok-bool); }
+.tok-bracket { color: var(--tok-bracket); }
+
+/* ══════════════════════════════════════════════════════════════
+   ERROR BANNER
+══════════════════════════════════════════════════════════════ */
+.error-msg {
+  color:         var(--error-color);
+  background:    rgba(192, 57, 74, 0.07);
+  border:        1px solid rgba(192, 57, 74, 0.22);
+  border-radius: 5px;
+  padding:       8px 12px;
+  font-size:     12px;
+  line-height:   1.5;
+  white-space:   pre-wrap;
+  transition:    background 0.18s, border-color 0.18s;
+}
+
+[data-theme="dark"] .error-msg {
+  background: rgba(224, 108, 117, 0.08);
+  border-color: rgba(224, 108, 117, 0.25);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   BUTTONS
+══════════════════════════════════════════════════════════════ */
+.btn {
+  display:       inline-flex;
+  align-items:   center;
+  gap:           5px;
+  padding:       5px 12px;
+  border-radius: 5px;
+  border:        1px solid var(--border);
+  background:    var(--bg-surface);
+  color:         var(--text-secondary);
+  font-family:   'Inter', system-ui, sans-serif;
+  font-size:     12px;
+  font-weight:   500;
+  cursor:        pointer;
+  white-space:   nowrap;
+  transition:    border-color 0.15s, color 0.15s, background 0.15s;
+  line-height:   1;
+}
+
+.btn:hover {
+  border-color: var(--accent);
+  color:        var(--text-primary);
+}
+
+.btn.active {
+  border-color: var(--accent);
+  background:   var(--accent-dim);
+  color:        var(--accent);
+}
+
+.btn.btn-ghost {
+  background:   transparent;
+  border-color: transparent;
+}
+
+.btn.btn-ghost:hover {
+  border-color: var(--border);
+}
+
+.btn.btn-hero {
+  border-color: var(--accent);
+  color:        var(--accent);
+  background:   var(--accent-dim);
+}
+
+.btn.btn-hero:hover {
+  background: rgba(108, 117, 240, 0.24);
+}
+
+[data-theme="light"] .btn.btn-hero:hover {
+  background: rgba(79, 91, 220, 0.18);
+}
+
+/* Secondary author CTA — same accent family, no fill */
+.btn.btn-by {
+  border-color: var(--border);
+  color:        var(--text-secondary);
+  background:   transparent;
+}
+
+.btn.btn-by:hover {
+  border-color: var(--accent);
+  color:        var(--accent);
+  background:   var(--accent-dim);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   BADGES
+══════════════════════════════════════════════════════════════ */
+.badge-valid,
+.badge-error {
+  display:     inline-flex;
+  align-items: center;
+  gap:         5px;
+  font-size:   11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.badge-valid { color: var(--valid-color); }
+.badge-error { color: var(--error-color); }
+
+.badge-dot {
+  width:         6px;
+  height:        6px;
+  border-radius: 50%;
+  background:    currentColor;
+  flex-shrink:   0;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   COPY FLASH
+══════════════════════════════════════════════════════════════ */
+.copy-success {
+  color:        var(--valid-color) !important;
+  border-color: var(--valid-color) !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   PANEL LABELS
+══════════════════════════════════════════════════════════════ */
+.panel-label {
+  font-size:      11px;
+  font-weight:    600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color:          var(--text-muted);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   VERTICAL DIVIDER
+══════════════════════════════════════════════════════════════ */
+.divider {
+  width:      1px;
+  background: var(--border);
+  flex-shrink: 0;
+  transition: background 0.18s;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   PANELS LAYOUT  (main two-panel area)
+══════════════════════════════════════════════════════════════ */
+.panels-main {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  padding: 20px 24px;
+  gap: 20px;
+  min-height: 0;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   RESPONSIVE — stack vertically on mobile
+══════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .panels-main {
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .panels-main section {
+    min-height: 280px;
+  }
+
+  .panels-main section:first-child textarea {
+    min-height: 220px;
+  }
+
+  .panels-divider {
+    display: none;
+  }
+}
